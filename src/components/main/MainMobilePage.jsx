@@ -18,7 +18,6 @@ const MainMobilePage = () => {
       {
         reviewSummaries.keywordSentimentData.length !== 0 &&
         (<div>
-          <hr />
           <KeywordBarMobile />
         </div>)
       }

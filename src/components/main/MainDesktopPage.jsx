@@ -23,7 +23,6 @@ const MainDesktopPage = () => {
           {
             reviewSummaries.keywordSentimentData.length !== 0 &&
             (<div>
-              <hr />
               <KeywordBarDesktop />
             </div>)
           }
