@@ -32,7 +32,7 @@ export const fetchKeywordSummaries = createAsyncThunk('summary/getKeywordSummari
   const encodedHotelName = encodeURIComponent(selectedHotelValue);
   const encodedKeyword = encodeURIComponent(keyword);
 
-  const url = `${process.env.REACT_APP_API_URL}/predict_hotel_keyword?hotel_name=${encodedHotelName}&keyword=${keyword}`
+  const url = `${process.env.REACT_APP_API_URL}/predict_hotel_keyword?hotel_name=${encodedHotelName}&keyword=${encodedKeyword}`
   console.log('url: ' + url)
   return axios.get('https://jsonplaceholder.typicode.com/users')
     .then((response) => {return response.data})
@@ -49,6 +49,10 @@ const reviewSummariesSlice = createSlice({
       state.showInputKeyword = false
     })
     builders.addCase(fetchSummaries.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.showInputKeyword = true
+      state.error = ''
+
       console.log(action.payload)
       state.sentimentDatas = action.payload.slice(0, 5).map((data, index) => {
         return (
@@ -60,10 +64,6 @@ const reviewSummariesSlice = createSlice({
       })
       state.textSummary.positiveSummary = action.payload[0].company.name
       state.textSummary.negativeSummary = action.payload[0].company.catchPhrase
-
-      state.isLoading = false
-      state.showInputKeyword = true
-      state.error = ''
     })
     builders.addCase(fetchSummaries.rejected, (state, action) => {
       state.isLoading = false
