@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux"
 import ContentBarDesktopPage from "../contentbar/desktop/ContentBarDesktopPage"
 import HotelInput from "../sidebar/HotelInput"
-import KeywordBarDesktop from "../contentbar/desktop/KeywordBarDesktop"
 
 const MainDesktopPage = () => {
 
@@ -18,12 +17,6 @@ const MainDesktopPage = () => {
             reviewSummaries.sentimentDatas.length !== 0 &&
             (<div>
               <ContentBarDesktopPage />
-            </div>)
-          }
-          {
-            reviewSummaries.keywordSentimentData.length !== 0 &&
-            (<div>
-              <KeywordBarDesktop />
             </div>)
           }
         </div>

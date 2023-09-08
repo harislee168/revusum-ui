@@ -1,29 +1,34 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchKeywordSummaries, fetchSummaries } from '../../features/reviewSummariesSlice'
+import { fetchSummaries } from '../../features/reviewSummariesSlice'
 
 const HotelInput = () => {
-  const [hotelList, setHotelList] = useState([])
-  const [selectedHotelValue, setSelectedHotelValue] = useState('Your Favorite Hotel')
+  const [hotelList, setHotelList] = useState([{key: null, value: null}])
+  const [selectedHotelValue, setSelectedHotelValue] = useState({key:'Your Favorite Hotel', value:''})
   const [keyword, setKeyword] = useState('')
-
-  const baseUrl = process.env.REACT_APP_API_URL
 
   const reviewSummaries = useSelector((state) => {return state.reviewSummaries})
   const dispatch = useDispatch()
 
   useEffect(() => {
     //call api to set the values of the hotels
-    setHotelList(['Ibis Hotel', 'Holiday Inn', 'Shangri-La', 'Hyatt', 'Sheraton'])
+    setHotelList([
+      {key: 'Holiday Inn Express Katong', value: 'Holiday Inn Express Singapore Katong, an IHG Hotel'},
+      {key: 'Ibis Budget SG Pearl', value: 'Ibis Budget Singapore Pearl'},
+      {key: 'Ibis Styles SG Albert', value: 'ibis Styles Singapore Albert'},
+      {key: 'Village Hotel Albert Court', value: 'Village Hotel Albert Court by Far East Hospitality'},
+      {key: 'Lyf Farrer Park SG', value: 'lyf Farrer Park Singapore'},
+    ])
   }, [])
 
-  const hotelSelectHandler = (hotelSelected) => {
-    setSelectedHotelValue(hotelSelected)
-    dispatch(fetchSummaries(hotelSelected))
+  const hotelSelectHandler = (hotelKey, hotelValue) => {
+    setSelectedHotelValue({key: hotelKey, value: hotelValue})
+    dispatch(fetchSummaries(hotelValue))
   }
 
   const processKeywordHandler = () => {
-    dispatch(fetchKeywordSummaries({selectedHotelValue, keyword}))
+    const selectedHotelValueParams = selectedHotelValue.value
+    // dispatch(fetchKeywordSummaries({selectedHotelValueParams, keyword}))
   }
 
   return (
@@ -34,14 +39,14 @@ const HotelInput = () => {
       <div className='card-body'>
         <div className='dropdown'>
           <button className='btn btn-light dropdown-toggle' type='button' id='hotelIdButton' data-bs-toggle='dropdown' aria-expanded='false'>
-            {selectedHotelValue}
+            {selectedHotelValue.key}
           </button>
           <ul className='dropdown-menu' aria-labelledby='hotelIdButton'>
             {
-              hotelList.map((hotel) => {
+              hotelList.map((hotel, index) => {
                 return (
-                  <li key={hotel} onClick={() => hotelSelectHandler(hotel)}>
-                    <a href='#' className='dropdown-item'>{hotel}</a>
+                  <li key={index} onClick={() => hotelSelectHandler(hotel.key, hotel.value)}>
+                    <a href='#' className='dropdown-item'>{hotel.key}</a>
                   </li>
                 )
               })

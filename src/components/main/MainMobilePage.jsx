@@ -15,12 +15,6 @@ const MainMobilePage = () => {
           <ContentBarMobilePage />
         </div>
       }
-      {
-        reviewSummaries.keywordSentimentData.length !== 0 &&
-        (<div>
-          <KeywordBarMobile />
-        </div>)
-      }
     </div>
   )
 }

@@ -5,9 +5,11 @@ import Loadingbar from "../../utils/Loadingbar"
 
 const ContentBarDesktopPage = () => {
   const reviewSummaries = useSelector((state) => {return state.reviewSummaries})
+
   if (reviewSummaries.isLoading === true) {
     return (<Loadingbar />)
   }
+
   return (
     <div className='container-fluid d-flex'>
       <div>
