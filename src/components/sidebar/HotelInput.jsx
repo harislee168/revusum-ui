@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchSummaries } from '../../features/reviewSummariesSlice'
 
 const HotelInput = () => {
   const [hotelList, setHotelList] = useState([{key: null, value: null}])
   const [selectedHotelValue, setSelectedHotelValue] = useState({key:'Your Favorite Hotel', value:''})
-  const [keyword, setKeyword] = useState('')
 
-  const reviewSummaries = useSelector((state) => {return state.reviewSummaries})
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -24,11 +22,6 @@ const HotelInput = () => {
   const hotelSelectHandler = (hotelKey, hotelValue) => {
     setSelectedHotelValue({key: hotelKey, value: hotelValue})
     dispatch(fetchSummaries(hotelValue))
-  }
-
-  const processKeywordHandler = () => {
-    const selectedHotelValueParams = selectedHotelValue.value
-    // dispatch(fetchKeywordSummaries({selectedHotelValueParams, keyword}))
   }
 
   return (
@@ -53,15 +46,6 @@ const HotelInput = () => {
             }
           </ul>
         </div>
-        <hr />
-        {
-          reviewSummaries.showInputKeyword &&
-          <div>
-            <label htmlFor='keywordId' className='lead'>Keyword:</label>
-            <input type='text' className='form-control mt-3' id='keywordId' placeholder='Enter your keyword' onChange={(e) => {setKeyword(e.target.value)}}></input>
-            <button type="submit" className="btn btn-primary mt-3" onClick={processKeywordHandler}>Process</button>
-          </div>
-        }
       </div>
     </div>
   )

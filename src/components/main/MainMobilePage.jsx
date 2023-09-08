@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux"
 import ContentBarMobilePage from "../contentbar/mobile/ContentBarMobilePage"
 import HotelInput from "../sidebar/HotelInput"
-import KeywordBarMobile from "../contentbar/mobile/KeywordBarMobile"
 
 const MainMobilePage = () => {
   const reviewSummaries = useSelector((state) => { return state.reviewSummaries })

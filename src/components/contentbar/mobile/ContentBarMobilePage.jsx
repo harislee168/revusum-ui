@@ -13,7 +13,6 @@ const ContentBarMobilePage = () => {
     <div className='container-fluid d-flex justify-content-center align-items-center'>
       <div>
         <div className='mb-2'>
-          {/* <h4 style={{ display: 'inline', marginRight: '10px' }}>Keyword sentiments</h4> */}
           <span className='lead text-primary'>Higher percentage is better</span>
         </div>
         <SentimentButtonMobile sentimentDatas={reviewSummaries.sentimentDatas} />
